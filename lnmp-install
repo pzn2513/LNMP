@@ -1,3 +1,4 @@
+cd LNMP
 yum install -y epel-release
 yum install -y nginx
 service nginx start
@@ -5,8 +6,6 @@ service nginx start
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum install -y php72w* --skip-broken
-#修改配置文件/etc/php-fpm.d/www.conf      user=nginx group=nginx
-#service php-fpm start
 
 wget  https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
 rpm -ivh mysql80-community-release-el7-1.noarch.rpm --force --nodeps
@@ -16,7 +15,8 @@ yum install -y mysql-community-server
 wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
 unzip phpMyAdmin-4.8.3-all-languages.zip
 mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/mysql
-#chown nginx -R /var/lib/php
+mkdir /var/lib/php/session
+chown nginx /var/lib/php/session
 
 #这次最后再安装全家桶
 yum install -y wget bzip2 bzip2-devel zip unzip gcc gcc-c++ expat-devel libxml2-devel autoconf automake libtool re2c mod_ssl openssl \
@@ -30,7 +30,7 @@ cp /root/LNMP/conf/www.conf /etc/php-fpm.d/www.conf
 cp /root/LNMP/conf/my.cnf /etc/my.cnf
 cp /root/LNMP/conf/config.inc.php /usr/share/mysql/config.inc.php
 echo '<?php echo phpinfo();?>' > /usr/share/nginx/html/info.php
-php-fpm
+service php-fpm start
 service nginx restart
 systemctl start mysqld.service
 systemctl enable mysqld.service
