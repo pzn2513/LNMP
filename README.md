@@ -33,6 +33,14 @@ mysql -uroot -p
 ```
 MySQL8的配置变化比较大，如果无法成功配置可以寻求帮助，见[Bugs & Issues](#bugs--issues)
 
+输入服务器ip访问phpmyadmin： ip/phpMySQLAdmin-secret
+如果访问出现403，检查selinux状态，如开启关闭即可
+```bash
+- sestatus
+- setenforce 0
+- 上为临时关闭，永久关闭需要配置 SELINUX=disabled
+- vi /etc/selinux/config
+```
 
 Default Location
 ================
