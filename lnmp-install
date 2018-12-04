@@ -14,7 +14,7 @@ yum install -y mysql-community-server
 
 wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
 unzip phpMyAdmin-4.8.3-all-languages.zip
-mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/mysql
+mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/phpMySQLAdmin-secret
 mkdir /var/lib/php/session
 chown nginx /var/lib/php/session
 
@@ -31,7 +31,7 @@ cp /root/LNMP/conf/my.cnf /etc/my.cnf
 cp /root/LNMP/conf/config.inc.php /usr/share/mysql/config.inc.php
 echo '<?php echo phpinfo();?>' > /usr/share/nginx/html/info.php
 service php-fpm start
-service nginx restart
+service nginx start
 systemctl start mysqld.service
 systemctl enable mysqld.service
 
