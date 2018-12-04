@@ -5,7 +5,8 @@ service nginx start
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum install -y php72w* --skip-broken
-service php-fpm start
+#修改配置文件/etc/php-fpm.d/www.conf      user=nginx group=nginx
+#service php-fpm start
 
 wget  https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
 rpm -ivh mysql80-community-release-el7-1.noarch.rpm --force --nodeps
