@@ -1,0 +1,29 @@
+yum install -y epel-release
+yum install -y nginx
+service nginx start
+
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+yum install -y php72w* --skip-broken
+service php-fpm start
+
+wget  https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
+rpm -ivh mysql80-community-release-el7-1.noarch.rpm --force --nodeps
+yum install -y mysql-community-server
+systemctl start mysqld.service
+systemctl enable mysqld.service
+
+#这次最后再安装全家桶
+yum install -y wget bzip2 bzip2-devel zip unzip gcc gcc-c++ expat-devel libxml2-devel autoconf automake libtool re2c mod_ssl openssl \
+openssl-devel libcurl-devel libmcrypt-devel git libjpeg-devel libpng-devel libpng freetype-devel gmp-devel readline-devel libxslt-devel \
+flex zlib-devel mcrypt libicu-devel systemd-devel mhash postgresql-devel libxslt lrzsz libevent-devel --skip-broken
+
+
+./configure --prefix=/usr/local/php --with-curl --with-freetype-dir --with-gd --with-gettext \
+--with-iconv-dir --with-kerberos --with-libdir=lib64 --with-libxml-dir --with-mysqli --with-openssl --with-pcre-regex --with-pdo-mysql \
+--with-pdo-sqlite --with-pear --with-png-dir --with-xmlrpc --with-xsl --with-zlib --with-mhash --enable-fpm --enable-bcmath \
+--enable-libxml --enable-inline-optimization --enable-gd-native-ttf --enable-mbregex --enable-mbstring --enable-opcache --enable-pcntl \
+--enable-shmop --enable-soap --enable-sockets --enable-sysvsem --enable-xml --enable-zip --enable-mysqlnd
+make&&make install
+#php --ini        php -m
+cp php.ini-development /usr/local/php/lib/php.ini
