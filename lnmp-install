@@ -33,3 +33,11 @@ flex zlib-devel mcrypt libicu-devel systemd-devel mhash postgresql-devel libxslt
 make&&make install
 #php --ini        php -m
 cp php.ini-development /usr/local/php/lib/php.ini
+
+
+#nginx、mysql、phpmyadmin初始化
+cp /root/LNMP/conf/httpd.conf /usr/local/apache24/conf/httpd.conf
+cp /root/LNMP/conf/my.cnf /etc/my.cnf
+cp /root/LNMP/conf/config.inc.php /usr/local/apache24/htdocs/phpMySQLAdmin-secret/config.inc.php
+service nginx restart
+systemctl restart mysqld.service
