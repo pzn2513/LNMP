@@ -18,8 +18,11 @@ mysql -uroot -p
 安装完成！
 获取MySQL临时密码，登陆后需修改密码
 ```bash
-set global validate_password.policy=LOW;
 grep 'temporary password' /var/log/mysqld.log
+```
+```bash
+
+set global validate_password.policy=LOW;
 alter user 'root'@'localhost' identified by 'Your.Password';
 
 #新建一个admin用户，密码类型native，用来给phpmyadmin连接数据库（当然，也可以改root密码类型）
