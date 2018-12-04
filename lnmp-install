@@ -14,7 +14,7 @@ yum install -y mysql-community-server
 
 wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
 unzip phpMyAdmin-4.8.3-all-languages.zip
-mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/phpMySQLAdmin-secret
+mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/html/phpMySQLAdmin-secret
 mkdir /var/lib/php/session
 chown nginx /var/lib/php/session
 
