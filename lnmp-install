@@ -13,6 +13,11 @@ yum install -y mysql-community-server
 systemctl start mysqld.service
 systemctl enable mysqld.service
 
+wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
+unzip phpMyAdmin-4.8.3-all-languages.zip
+mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/phpMySQLAdmin-secret
+#chown -R daemon /usr/local/apache24/htdocs/phpMySQLAdmin-secret
+
 #这次最后再安装全家桶
 yum install -y wget bzip2 bzip2-devel zip unzip gcc gcc-c++ expat-devel libxml2-devel autoconf automake libtool re2c mod_ssl openssl \
 openssl-devel libcurl-devel libmcrypt-devel git libjpeg-devel libpng-devel libpng freetype-devel gmp-devel readline-devel libxslt-devel \
