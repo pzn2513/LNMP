@@ -11,14 +11,12 @@ yum install -y php72w* --skip-broken
 wget  https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
 rpm -ivh mysql80-community-release-el7-1.noarch.rpm --force --nodeps
 yum install -y mysql-community-server
-systemctl start mysqld.service
-systemctl enable mysqld.service
+
 
 wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
 unzip phpMyAdmin-4.8.3-all-languages.zip
-mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/phpMySQLAdmin-secret
-chown nginx -R php
-#chown -R daemon /usr/local/apache24/htdocs/phpMySQLAdmin-secret
+mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/mysql
+#chown nginx -R /var/lib/php
 
 #这次最后再安装全家桶
 yum install -y wget bzip2 bzip2-devel zip unzip gcc gcc-c++ expat-devel libxml2-devel autoconf automake libtool re2c mod_ssl openssl \
@@ -27,8 +25,14 @@ flex zlib-devel mcrypt libicu-devel systemd-devel mhash postgresql-devel libxslt
 
 
 #nginx、mysql、phpmyadmin初始化
-cp -f /root/LNMP/conf/nginx.conf /etc/nginx/nginx.conf
-cp -f /root/LNMP/conf/my.cnf /etc/my.cnf
-cp -f /root/LNMP/conf/config.inc.php /usr/share/nginx/html/phpMySQLAdmin-secret/config.inc.php
+cp /root/LNMP/conf/nginx.conf /etc/nginx/nginx.conf
+cp /root/LNMP/conf/www.conf /etc/php-fpm.d/www.conf
+cp /root/LNMP/conf/my.cnf /etc/my.cnf
+cp /root/LNMP/conf/config.inc.php /usr/share/mysql/config.inc.php
+echo '<?php echo phpinfo();?>' > /usr/share/nginx/html/info.php
+php-fpm
 service nginx restart
-systemctl restart mysqld.service
+systemctl start mysqld.service
+systemctl enable mysqld.service
+
+grep 'temporary password' /var/log/mysqld.log
