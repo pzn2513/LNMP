@@ -17,6 +17,7 @@ systemctl enable mysqld.service
 wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
 unzip phpMyAdmin-4.8.3-all-languages.zip
 mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/phpMySQLAdmin-secret
+chown nginx -R php
 #chown -R daemon /usr/local/apache24/htdocs/phpMySQLAdmin-secret
 
 #这次最后再安装全家桶
@@ -25,19 +26,9 @@ openssl-devel libcurl-devel libmcrypt-devel git libjpeg-devel libpng-devel libpn
 flex zlib-devel mcrypt libicu-devel systemd-devel mhash postgresql-devel libxslt lrzsz libevent-devel --skip-broken
 
 
-./configure --prefix=/usr/local/php --with-curl --with-freetype-dir --with-gd --with-gettext \
---with-iconv-dir --with-kerberos --with-libdir=lib64 --with-libxml-dir --with-mysqli --with-openssl --with-pcre-regex --with-pdo-mysql \
---with-pdo-sqlite --with-pear --with-png-dir --with-xmlrpc --with-xsl --with-zlib --with-mhash --enable-fpm --enable-bcmath \
---enable-libxml --enable-inline-optimization --enable-gd-native-ttf --enable-mbregex --enable-mbstring --enable-opcache --enable-pcntl \
---enable-shmop --enable-soap --enable-sockets --enable-sysvsem --enable-xml --enable-zip --enable-mysqlnd
-make&&make install
-#php --ini        php -m
-cp php.ini-development /usr/local/php/lib/php.ini
-
-
 #nginx、mysql、phpmyadmin初始化
-cp /root/LNMP/conf/httpd.conf /usr/local/apache24/conf/httpd.conf
-cp /root/LNMP/conf/my.cnf /etc/my.cnf
-cp /root/LNMP/conf/config.inc.php /usr/local/apache24/htdocs/phpMySQLAdmin-secret/config.inc.php
+cp -f /root/LNMP/conf/nginx.conf /etc/nginx/nginx.conf
+cp -f /root/LNMP/conf/my.cnf /etc/my.cnf
+cp -f /root/LNMP/conf/config.inc.php /usr/share/nginx/html/phpMySQLAdmin-secret/config.inc.php
 service nginx restart
 systemctl restart mysqld.service
