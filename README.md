@@ -5,11 +5,11 @@ CentOS + Nginx + PHP7 + MySQL8 + phpMyAdmin 一键安装
 # 安装指南：
 使用root连接服务器
 ```bash
-cd ~
 yum install -y git
-git clone https://github.com/pzn2513/LNMP.git
-chmod 700 LAMP/lnmp-install
-LNMP/lnmp-install
+git clone https://github.com/pzn2513/LNMP
+chmod 700 LNMP/lnmp-install
+cd LNMP
+./lnmp-install
 mysql -uroot -p
 ```
 复制粘贴以上命令，等待安装……
