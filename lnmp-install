@@ -12,16 +12,16 @@ rpm -ivh mysql80-community-release-el7-1.noarch.rpm --force --nodeps
 yum install -y mysql-community-server
 
 
+#这次最后再安装全家桶
+yum install -y wget bzip2 bzip2-devel zip unzip gcc gcc-c++ expat-devel libxml2-devel autoconf automake libtool re2c mod_ssl openssl \
+openssl-devel libcurl-devel libmcrypt-devel git libjpeg-devel libpng-devel libpng freetype-devel gmp-devel readline-devel libxslt-devel \
+flex zlib-devel mcrypt libicu-devel systemd-devel mhash postgresql-devel libxslt lrzsz libevent-devel --skip-broken
+
 wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-all-languages.zip
 unzip phpMyAdmin-4.8.3-all-languages.zip
 mv phpMyAdmin-4.8.3-all-languages /usr/share/nginx/html/phpMySQLAdmin-secret
 mkdir /var/lib/php/session
 chown nginx /var/lib/php/session
-
-#这次最后再安装全家桶
-yum install -y wget bzip2 bzip2-devel zip unzip gcc gcc-c++ expat-devel libxml2-devel autoconf automake libtool re2c mod_ssl openssl \
-openssl-devel libcurl-devel libmcrypt-devel git libjpeg-devel libpng-devel libpng freetype-devel gmp-devel readline-devel libxslt-devel \
-flex zlib-devel mcrypt libicu-devel systemd-devel mhash postgresql-devel libxslt lrzsz libevent-devel --skip-broken
 
 
 #nginx、mysql、phpmyadmin初始化
